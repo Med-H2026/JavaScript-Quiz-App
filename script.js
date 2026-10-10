@@ -1,75 +1,22 @@
-const questions=[
-    {
-        question: 'Which is the largest Ocean in the world?',
-        answer: [
-            {text:"Atlantic",correct:false},
-            {text:"Indian Ocean",correct:false},
-            {text:"Pacific Ocean",correct:true},
-            {text:"Arctic",correct:false},
-        ]
-    },
-    {
-        question: 'Which planet is known as the Red Planet?',
-        answer: [
-            {text:"Venus",correct:false},
-            {text:"Mars",correct:true},
-            {text:"Jupiter",correct:false},
-            {text:"Saturn",correct:false},
-        ]
-    },
-    {
-        question: 'How many continents are there?',
-        answer: [
-            {text:"5",correct:false},
-            {text:"6",correct:false},
-            {text:"7",correct:true},
-            {text:"8",correct:false},
-        ]
-    },
-    {
-        question: 'What is the capital of Qatar?',
-        answer: [
-            {text:"Manama",correct:false},
-            {text:"Doha",correct:true},
-            {text:"Riyadh",correct:false},
-            {text:"Dubai",correct:false},
-        ]
-    },
-    {
-        question: 'Which is the smallest country in the world?',
-        answer: [
-            {text:"Monaco",correct:false},
-            {text:"Malta",correct:false},
-            {text:"San Marino",correct:false},
-            {text:"Vatican City",correct:true},
-        ]
-    },
-    {
-        question: 'Who invented JavaScript?',
-        answer: [
-            {text:"Brendan Eich",correct:true},
-            {text:"Tim Berners-Lee",correct:false},
-            {text:"Bill Gates",correct:false},
-            {text:"James Gosling",correct:false},
-        ]
-    },
-    {
-        question: 'What does HTML stand for?',
-        answer: [
-            {text:"High Text Machine Language",correct:false},
-            {text:"Hyper Tabular Markup Language",correct:false},
-            {text:"Hyper Text Markup Language",correct:true},
-            {text:"None of these",correct:false},
-        ]
-    },
-] ;  
 
 const question = document.getElementById('question');
 const answer_buttons = document.getElementById('answer-buttons');
 const next_button = document.getElementById('next-btn');
 let current_question_Index = 0;
 let score = 0;
+let questions = [];
 
+async function loadQuestions() {
+    try{
+        const response = await fetch('./questions.json');
+        questions = await response.json();
+        startQuiz();
+    }catch (error){
+        console.error('Failed to load questions',error);
+        question.innerHTML = 'Failed to load questions';
+    }
+    
+}
 function startQuiz(){
     current_question_Index = 0;
     score = 0;
@@ -125,7 +72,7 @@ function showScore(){
         question.innerHTML = `You scored ${score} out of ${questions.length} <br>Congrats! You Passed the Quiz`;
         question.classList.add('passed');
     }else{
-        question.innerHTML = `You scored ${score} out of ${questions.length} <br>Sorry! Please Try Again`;
+        question.innerHTML = `You scored ${score} out of ${questions.length} <br>Sorry You Lost! Please Try Again`;
         question.classList.add('failed');
     }
 
@@ -149,4 +96,4 @@ next_button.addEventListener('click',()=>{
     }
 }) 
 
-showQuiz();
+loadQuestions();
