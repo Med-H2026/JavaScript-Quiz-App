@@ -14,7 +14,7 @@ const questions=[
             {text:"Venus",correct:false},
             {text:"Mars",correct:true},
             {text:"Jupiter",correct:false},
-            {text:"saturn",correct:false},
+            {text:"Saturn",correct:false},
         ]
     },
     {
@@ -31,7 +31,7 @@ const questions=[
         answer: [
             {text:"Manama",correct:false},
             {text:"Doha",correct:true},
-            {text:"Riyadth",correct:false},
+            {text:"Riyadh",correct:false},
             {text:"Dubai",correct:false},
         ]
     },
@@ -47,14 +47,14 @@ const questions=[
     {
         question: 'Who invented JavaScript?',
         answer: [
-            {text:"Brenden Eich",correct:true},
-            {text:"Tim Berners",correct:false},
+            {text:"Brendan Eich",correct:true},
+            {text:"Tim Berners-Lee",correct:false},
             {text:"Bill Gates",correct:false},
             {text:"James Gosling",correct:false},
         ]
     },
     {
-        question: 'What does HTML stands for?',
+        question: 'What does HTML stand for?',
         answer: [
             {text:"High Text Machine Language",correct:false},
             {text:"Hyper Tabular Markup Language",correct:false},
@@ -120,6 +120,7 @@ function selectAnswer(e){
 }
 function showScore(){
     reset_answers();
+    question.classList.remove('passed','failed');
     if (score >= (questions.length/2)){
         question.innerHTML = `You scored ${score} out of ${questions.length} <br>Congrats! You Passed the Quiz`;
         question.classList.add('passed');
